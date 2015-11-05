@@ -118,6 +118,11 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
             ean.setHint("");
         }
 
+        if(getActivity().getIntent().getStringExtra("ISBN") != null){
+            isbn = getActivity().getIntent().getStringExtra("ISBN");
+            ean.setText(isbn);
+        }
+
         return rootView;
     }
 

@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import it.jaschke.alexandria.api.Callback;
@@ -48,16 +49,6 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
             setContentView(R.layout.activity_main);
         }
 
-        if(getIntent().getStringExtra("ISBN") != null) {
-            String isbn;
-            isbn = getIntent().getStringExtra("ISBN");
-
-            Intent bookIntent = new Intent(this, BookService.class);
-            bookIntent.putExtra(BookService.EAN, isbn);
-            bookIntent.setAction(BookService.FETCH_BOOK);
-            startService(bookIntent);
-        }
-
         messageReciever = new MessageReciever();
         IntentFilter filter = new IntentFilter(MESSAGE_EVENT);
         LocalBroadcastManager.getInstance(this).registerReceiver(messageReciever,filter);
@@ -69,6 +60,13 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
         // Set up the drawer.
         navigationDrawerFragment.setUp(R.id.navigation_drawer,
                     (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        if(getIntent().getStringExtra("ISBN") != null) {
+        onNavigationDrawerItemSelected(1);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            navigationDrawerFragment.selectItem(1); //I made the method public to be able to
+                                                    //select an item dynamically.
+        }
     }
 
     @Override

@@ -188,6 +188,9 @@ public class BookService extends IntentService {
             }
 
             writeBackBook(ean, title, subtitle, desc, imgUrl);
+            Intent messageIntent = new Intent(MainActivity.MESSAGE_EVENT);
+            messageIntent.putExtra(MainActivity.MESSAGE_KEY,String.format(getResources().getString(R.string.book_added), title));
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(messageIntent);
 
             if(bookInfo.has(AUTHORS)) {
                 writeBackAuthors(ean, bookInfo.getJSONArray(AUTHORS));
