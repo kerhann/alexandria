@@ -71,11 +71,16 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
             @Override
             public void afterTextChanged(Editable s) {
                 String ean =s.toString();
-                //catch isbn10 numbers
-                // TODO: 6/11/15 gérer les ISBN commençant par 979 
+                //
+                //I decided not to provide users with the ISBN-10 to ISBN-13 conversion functionality
+                //because a ISBN-10 number may begin with 978 and besides, a ISBN-13 code is not
+                //automatically 978 + a ISBN-10 code. See this post:
+                //https://discussions.udacity.com/t/alexandria-isbn-10-to-isbn-13-conversion-problem/37568
+                //
+/*                //catch isbn10 numbers
                 if(ean.length()==10 && !ean.startsWith("978")){
                     ean="978"+ean;
-                }
+                }*/
                 if(ean.length()<13){
                     clearFields();
                     return;
